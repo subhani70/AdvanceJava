@@ -1,0 +1,49 @@
+package org.jsp;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+import javax.servlet.GenericServlet;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+
+public class Update extends GenericServlet {
+	@Override
+	public void service(ServletRequest request, ServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		PrintWriter out=response.getWriter();
+		String frontId=request.getParameter("id");
+		int id=Integer.parseInt(frontId);
+		String email=request.getParameter("email");
+		
+		
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection connection=DriverManager.getConnection("jdbc:mysql://localhost:3306/hr_table?user=root&password=Zquadstark@1");
+			PreparedStatement preparedStatement=connection.prepareStatement("Update users set name=? WHERE id=?");
+			preparedStatement.setString(1, email);
+			preparedStatement.setInt(2,id);
+			
+			int res=preparedStatement.executeUpdate();
+			if(res==1) {
+				out.println("<h1>Account Delete Successfull</h1>");
+			}
+			else {
+				out.println("<h1>Account delete UnSuccessfull</h1>");
+			}
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+	
+}

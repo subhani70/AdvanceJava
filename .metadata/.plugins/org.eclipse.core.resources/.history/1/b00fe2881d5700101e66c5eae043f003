@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<form action="addStudent.html" method="get">  <button>Add Student</button></form>
+<form action="removeStudent.html" method="get">  <button>Remove Student</button></form>
+<form action="displayAllStudents" method="get">  <button>Display All Students</button></form>
+<form action="student.html" method="post">  <button>Display Student</button></form>
+
+
+<br><br><br>
+<form action="login.html" method="get"> 
+ <button>logout</button>
+</form>
+
+</body>
+</html>

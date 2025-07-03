@@ -1,0 +1,43 @@
+package org.jsp;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+@WebServlet("/editStudent")
+public class EditStudent extends HttpServlet {
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+        int id = Integer.parseInt(req.getParameter("id"));
+        PrintWriter out = res.getWriter();
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/hr_table?user=root&password=Zquadstark@1");
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM users WHERE id=" + id);
+
+            if (rs.next()) {
+                out.println("<form action='updateStudent' method='post'>");
+                out.println("<input type='hidden' name='id' value='" + rs.getInt("id") + "'/>");
+                out.println("Name: <input type='text' name='name' value='" + rs.getString("name") + "'/><br>");
+                out.println("Email: <input type='email' name='email' value='" + rs.getString("email") + "'/><br>");
+                out.println("Password: <input type='text' name='password' value='" + rs.getString("password") + "'/><br>");
+                out.println("<button type='submit'>Update Student</button>");
+                out.println("</form>");
+            } else {
+                out.println("Student not found.");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}

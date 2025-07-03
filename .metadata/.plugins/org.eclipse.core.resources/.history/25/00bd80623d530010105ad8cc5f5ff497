@@ -1,0 +1,35 @@
+package org.jsp;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.Connection;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+public class SignUp extends HttpServlet {
+	
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+	   PrintWriter out=res.getWriter();
+	   
+	   String frontid=req.getParameter("id");
+	   int id=Integer.parseInt(frontid);
+	   String name=req.getParameter("name");
+	   String email=req.getParameter("email");
+	   String password=req.getParameter("password");
+	   
+	   try {
+		Class.forName("com.mysql.cj.jdbc");
+		Connection connection=Driver.Manager()
+		
+	} catch (ClassNotFoundException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	   
+		
+	}
+}
